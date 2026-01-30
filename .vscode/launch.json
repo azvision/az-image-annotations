@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -12,8 +9,9 @@
             "request": "launch",
             "program": "process.py",
             "args": [
-                "--transformation_name", "rgb",
-                "--annotations_batch", "batch-001|batch-002|batch-003|batch-004|batch-005",
+                "--transformation_name", "as_is",
+                "--annotations_dir", "batches_mlodawski",
+                "--annotations_batch", "batch_01"
             ],
             "console": "integratedTerminal",
             "justMyCode": true
@@ -22,12 +20,14 @@
             "name": "Train",
             "stopOnEntry": false,
             "type": "debugpy",
-            "python": "${workspaceFolder}/.venv/scripts/python.exe",
+            "python": "${workspaceFolder}/.venv_311_2024_10_27/scripts/python.exe",
             "request": "launch",
             "program": "train.py",
             "args": [
-                "--epochs", "400",
-                "--src_model", "yolov8n.pt"
+                "--epochs", "1",
+                "--src_model", "yolov8s.pt",
+                "--networksize", "512",
+                "--ir_version", "9"
             ],
             "console": "integratedTerminal",
             "justMyCode": true
@@ -40,11 +40,59 @@
             "request": "launch",
             "program": "train.py",
             "args": [
-                "--epochs", "400",
-                "--src_model", "C:\\Code\\Github\\az-image-annotations\\runs\\az-footfall-2024-05-30_10-06\\weights\\best.pt"
-                ],
+                "--epochs",
+                "400",
+                "--src_model",
+                "C:\\Code\\Github\\az-image-annotations\\runs\\az-footfall-2024-05-30_10-06\\weights\\best.pt"
+            ],
             "console": "integratedTerminal",
             "justMyCode": true
-        }
+        },
+        {
+            "name": "auto-label",
+            "stopOnEntry": false,
+            "type": "debugpy",
+            "python": "${workspaceFolder}/.venv311/scripts/python.exe",
+            "request": "launch",
+            "program": "auto_label.py",
+            "args": [
+                "--search_classes",
+                "eye",
+                "--batches_path",
+                "C:\\azvision\\batches_gaze2",
+                "--filter_batches",
+                "batch_01"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "test YOLO",
+            "stopOnEntry": false,
+            "type": "debugpy",
+            "python": "${workspaceFolder}/.venv_311_2024_10_27/scripts/python.exe",
+            "request": "launch",
+            "program": "test_yolo.py",
+            "args": [
+                "--example_image", "C:\\Users\\janau\\Downloads\\azinspector001\\img-2024-11-07T11-05-53.jpg",
+                "--src_model", "C:\\Code\\Github\\az-image-annotations\\runs\\az-footfall-2024-10-27_15-14\\weights\\best.pt"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "test ONNX",
+            "stopOnEntry": false,
+            "type": "debugpy",
+            "python": "${workspaceFolder}/.venv_311_2024_10_27/scripts/python.exe",
+            "request": "launch",
+            "program": "test_onnx.py",
+            "args": [
+                "--example_image", "C:\\Users\\janau\\Downloads\\azinspector001\\img-2024-11-07T11-05-53.jpg",
+                "--src_model", "C:\\Code\\Github\\az-image-annotations\\runs\\az-footfall-2024-10-27_15-14\\weights\\best9.onnx"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
     ]
 }

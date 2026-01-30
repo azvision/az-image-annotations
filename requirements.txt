@@ -1,7 +1,10 @@
 pillow==9.5.0
-ultralytics==8.2.45
-wakepy
+ultralytics==8.3.23
+# wakepy
 # clearml
+# autodistill
+# autodistill-grounded-sam
+# autodistill-yolov8
 
 # For CUDA enabled training
 # https://pytorch.org/get-started/locally/

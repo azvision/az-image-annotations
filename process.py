@@ -9,7 +9,8 @@ import cv2
 from tqdm import tqdm
 
 _training_destinations = ['train', 'valid', 'test']
-cls_map = {0: 1, 1: 0, 2: 1, 3: 2, 4: 3, 5: None}
+# cls_map = {0: 1, 1: 0, 2: 1, 3: 2, 4: 3, 5: None}
+cls_map = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
 
 
 def main(args, loglevel):
@@ -85,20 +86,31 @@ def for_each_image(img_file_path, source_annotations_path, training_dir, images_
 
 
 def process_image(src_filepath, dest_dir, filename, transformation_name, contains_other_then_women):
-    # if contains_other_then_women is False:
-    #     os.remove(src_filepath)
-    #     return
+    # Ensure destination directory exists
+    os.makedirs(dest_dir, exist_ok=True)
+
+    # Handle "as_is" case: copy the image without modifications
+    if transformation_name == 'as_is':
+        shutil.copy(src_filepath, os.path.join(dest_dir, filename))
+        return
+
+    # Read the image once
+    image = cv2.imread(src_filepath)
+    if image is None:
+        print(f"Error: Unable to read image {src_filepath}")
+        return
 
     if transformation_name == 'rgb':
-        image = cv2.imread(src_filepath)
-        resized = cv2.resize(image, (640, 352))
+        resized = cv2.resize(image, (640, 640))
         cv2.imwrite(os.path.join(dest_dir, filename), resized)
 
-    if transformation_name == 'bw':
-        image = cv2.imread(src_filepath)
+    elif transformation_name == 'bw':
         resized = cv2.resize(image, (416, 416))
         gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
         cv2.imwrite(os.path.join(dest_dir, filename), gray)
+
+    else:
+        print(f"Warning: Unknown transformation '{transformation_name}', skipping image.")
 
 
 # Parse and create label

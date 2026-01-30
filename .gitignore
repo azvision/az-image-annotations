@@ -161,3 +161,6 @@ cython_debug/
 
 # Training folder
 runs/
+
+dataset/*
+dataset_yolo_head/*
