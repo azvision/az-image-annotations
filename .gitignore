@@ -164,3 +164,12 @@ runs/
 
 dataset/*
 dataset_yolo_head/*
+
+# Model weights
+*.pt
+
+# Container shared directory
+shared_with_container/
+
+# Windows artifacts
+nul

@@ -1,4 +1,0 @@
-woman
-man
-child
-stroller

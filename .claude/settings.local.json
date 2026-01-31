@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(find:*)"
+    ]
+  }
+}
